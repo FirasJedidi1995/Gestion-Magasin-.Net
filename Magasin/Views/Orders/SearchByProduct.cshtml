@@ -1,0 +1,50 @@
+﻿@model List<Order>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Orders Containing Product</title>
+</head>
+<body>
+    <h2>Orders Containing Product</h2>
+
+    <!-- Formulaire pour saisir le nom du produit -->
+    <form asp-controller="Orders" asp-action="SearchByProduct" method="get">
+        <p>
+            Search by Product Name: <input type="text" name="productName" />
+            <input type="submit" value="Search" />
+        </p>
+    </form>
+
+    <!-- Affichage des détails des commandes -->
+    @if (Model != null && Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Order Date</th>
+                    <th>Total Amount</th>
+                    <!-- Autres colonnes pour afficher d'autres détails de commande si nécessaire -->
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <td>@order.OrderId</td>
+                        <td>@order.OrderDate.ToString("yyyy-MM-dd")</td>
+                        <td>@order.TotalAmount</td>
+                        <!-- Ajoutez d'autres colonnes pour afficher plus de détails -->
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No orders found for the specified product name.</p>
+    }
+</body>
+</html>
